@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react'
 import Connect4 from './games/connect4/Connect4'
+import SpotDifference from './games/spot-difference/SpotDifference'
 import GameHome from './pages/GameHome'
 import './App.css'
 
-type Route = 'home' | 'connect4'
+type Route = 'home' | 'connect4' | 'spot-difference'
 
-const routeFromHash = (): Route =>
-  window.location.hash === '#/connect4' ? 'connect4' : 'home'
+const routeFromHash = (): Route => {
+  if (window.location.hash === '#/connect4') return 'connect4'
+  if (window.location.hash === '#/spot-difference') return 'spot-difference'
+  return 'home'
+}
 
 function App() {
   const [route, setRoute] = useState<Route>(routeFromHash)
@@ -18,13 +22,18 @@ function App() {
   }, [])
 
   const goTo = (nextRoute: Route) => {
-    window.location.hash = nextRoute === 'connect4' ? '/connect4' : ''
+    window.location.hash = nextRoute === 'home' ? '' : `/${nextRoute}`
     setRoute(nextRoute)
   }
 
-  return route === 'connect4'
-    ? <Connect4 onBack={() => goTo('home')} />
-    : <GameHome onPlayConnect4={() => goTo('connect4')} />
+  if (route === 'connect4') return <Connect4 onBack={() => goTo('home')} />
+  if (route === 'spot-difference') return <SpotDifference onBack={() => goTo('home')} />
+  return (
+    <GameHome
+      onPlayConnect4={() => goTo('connect4')}
+      onPlaySpotDifference={() => goTo('spot-difference')}
+    />
+  )
 }
 
 export default App

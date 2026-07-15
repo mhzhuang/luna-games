@@ -2,9 +2,10 @@ import './GameHome.css'
 
 type GameHomeProps = {
   onPlayConnect4: () => void
+  onPlaySpotDifference: () => void
 }
 
-function GameHome({ onPlayConnect4 }: GameHomeProps) {
+function GameHome({ onPlayConnect4, onPlaySpotDifference }: GameHomeProps) {
   return (
     <main className="games-home">
       <div className="home-stars" aria-hidden="true">
@@ -49,14 +50,21 @@ function GameHome({ onPlayConnect4 }: GameHomeProps) {
             </div>
           </button>
 
-          <article className="game-tile coming-tile">
-            <div className="coming-art" aria-hidden="true"><span>?</span><i>★</i><i>✦</i></div>
-            <div className="tile-content">
-              <span className="game-label">新的冒险</span>
-              <h3>更多游戏</h3>
-              <p>好玩的小游戏正在准备中…</p>
-              <span className="soon-pill">即将到来</span>
+          <button className="game-tile spot-tile" type="button" onClick={onPlaySpotDifference}>
+            <div className="spot-preview" aria-hidden="true">
+              <img src="/games/spot-difference/moonlight-picnic.jpg" alt="" />
+              <span>5</span>
             </div>
+            <div className="tile-content">
+              <span className="game-label">仔细观察</span>
+              <h3>找不同</h3>
+              <p>找出图片里的 5 处不同！</p>
+              <span className="play-pill">开始游戏 <b>›</b></span>
+            </div>
+          </button>
+
+          <article className="more-games-card">
+            <span>✦</span> 更多小游戏正在准备中…
           </article>
         </div>
       </section>
