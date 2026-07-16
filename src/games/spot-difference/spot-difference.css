@@ -114,6 +114,35 @@
 .art-apple::after { content: ''; position: absolute; left: 49%; top: -18%; width: 3px; height: 8px; border-radius: 3px; background: #5b3a20; }
 .art-flower { color: #ffd754; font-size: clamp(20px, 3vw, 44px); }
 .art-mushroom { color: #76c6ec; width: 35px; font-size: clamp(13px, 1.8vw, 26px); letter-spacing: 1px; transform: translate(-50%, -50%) rotate(-12deg); }
+.art-moon-star, .art-firefly { color: #fff197; font-size: clamp(16px, 2vw, 30px); text-shadow: 0 0 10px #ffe26b; }
+.art-castle-flag { color: #ff789e; font-size: clamp(16px, 2.2vw, 31px); transform: translate(-50%, -50%) rotate(-8deg); }
+.art-butterfly { width: clamp(18px, 2.5vw, 36px); height: clamp(12px, 1.7vw, 25px); border-radius: 90% 10% 90% 10%; color: #72d7e7; background: #72d7e7; box-shadow: 12px 0 #8ee6ee; transform: translate(-50%, -50%) rotate(35deg); }
+.art-lantern { width: clamp(20px, 3vw, 44px); height: clamp(25px, 3.7vw, 54px); border-radius: 50%; color: #63cae5; background: rgba(75,203,235,.8); box-shadow: 0 0 18px 8px #7de8f2; }
+.art-basket { width: clamp(22px, 3vw, 42px); height: clamp(15px, 2vw, 29px); border-radius: 90% 10% 90% 10%; color: #699fe9; background: #699fe9; box-shadow: 13px 0 #82b5ef; transform: translate(-50%, -50%) rotate(-14deg); }
+.art-dress-star { color: #ffe579; font-size: clamp(17px, 2.2vw, 32px); }
+.art-rabbit-ear { width: clamp(13px, 1.8vw, 26px); height: clamp(24px, 3.3vw, 48px); border-radius: 50%; color: #a96ac4; background: rgba(166,92,192,.82); transform: translate(-50%, -50%) rotate(-19deg); }
+.art-blanket { color: #659cd9; font-size: clamp(20px, 2.7vw, 40px); opacity: .9; }
+.art-purple-flower { color: #65cbe1; font-size: clamp(20px, 3vw, 44px); }
+.art-bubble { color: rgba(255,255,255,.8); font-size: clamp(25px, 3vw, 46px); text-shadow: 0 0 5px #67dce8; }
+.art-fish { width: clamp(23px, 3vw, 44px); height: clamp(14px, 1.8vw, 27px); border-radius: 60% 40% 45% 55%; color: #a96bd1; background: #a96bd1; }
+.art-flag, .art-pink-flag { color: #ff718f; font-size: clamp(18px, 2.4vw, 35px); transform: translate(-50%, -50%) rotate(-8deg); }
+.art-gold-star, .art-yellow-flag { color: #ffe05f; font-size: clamp(17px, 2.2vw, 34px); }
+.art-heart { color: #ff6f99; font-size: clamp(16px, 2vw, 31px); }
+.art-hat { color: #ffcf55; font-size: clamp(22px, 3vw, 43px); transform: translate(-50%, -50%) rotate(-7deg); }
+.art-gem { color: #55d7ec; font-size: clamp(18px, 2.5vw, 37px); text-shadow: 0 0 10px white; }
+.art-blue-pearl, .art-pearl { width: clamp(18px, 2.4vw, 35px); height: clamp(18px, 2.4vw, 35px); border-radius: 50%; color: #c5f7ff; background: #c5f7ff; box-shadow: inset 5px 4px white, 0 0 8px #6bd9f0; }
+.art-green-star { color: #75d890; font-size: clamp(23px, 3vw, 44px); }
+.art-yellow-flower { color: #ffe063; font-size: clamp(20px, 3vw, 43px); }
+.art-seaweed { color: #f4d55e; font-size: clamp(26px, 4vw, 58px); transform: translate(-50%, -50%) rotate(-28deg); }
+.art-planet-ring { width: clamp(40px, 6vw, 88px); height: 7px; border-radius: 50%; color: #ffdf85; background: #ffdf85; transform: translate(-50%, -50%) rotate(-15deg); }
+.art-blue-comet { color: #76dcff; font-size: clamp(22px, 3vw, 45px); text-shadow: -15px 8px 6px #6da9ff; }
+.art-green-planet { width: clamp(28px, 4vw, 58px); height: clamp(28px, 4vw, 58px); border-radius: 50%; color: #65d59b; background: #65d59b; box-shadow: inset 8px 4px #9ee8b6; }
+.art-blue-light { width: clamp(16px, 2vw, 30px); height: clamp(16px, 2vw, 30px); border-radius: 50%; color: #62dcff; background: #62dcff; box-shadow: 0 0 10px #8ef1ff; }
+.art-green-window { width: clamp(26px, 3vw, 45px); height: clamp(26px, 3vw, 45px); border-radius: 50%; color: #6edba1; background: #6edba1; box-shadow: inset 6px 3px #b0f4ca; }
+.art-yellow-crystal, .art-green-crystal { color: #ffe269; font-size: clamp(25px, 3.5vw, 50px); text-shadow: 0 0 9px currentColor; }
+.art-green-crystal { color: #74e0a5; }
+.art-antenna { width: clamp(12px, 1.5vw, 22px); height: clamp(12px, 1.5vw, 22px); border-radius: 50%; color: #ff7599; background: #ff7599; box-shadow: 0 -13px 0 -5px #ffe074; }
+.art-blue-flower { color: #63d2eb; font-size: clamp(22px, 3.2vw, 47px); }
 
 .hit-area {
   position: absolute;
