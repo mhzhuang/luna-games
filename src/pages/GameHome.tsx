@@ -3,9 +3,10 @@ import './GameHome.css'
 type GameHomeProps = {
   onPlayConnect4: () => void
   onPlaySpotDifference: () => void
+  onPlayDrawAlong: () => void
 }
 
-function GameHome({ onPlayConnect4, onPlaySpotDifference }: GameHomeProps) {
+function GameHome({ onPlayConnect4, onPlaySpotDifference, onPlayDrawAlong }: GameHomeProps) {
   return (
     <main className="games-home">
       <div className="home-stars" aria-hidden="true">
@@ -60,6 +61,19 @@ function GameHome({ onPlayConnect4, onPlaySpotDifference }: GameHomeProps) {
               <h3>找不同</h3>
               <p>找出图片里的 5 处不同！</p>
               <span className="play-pill">开始游戏 <b>›</b></span>
+            </div>
+          </button>
+
+          <button className="game-tile draw-tile" type="button" onClick={onPlayDrawAlong}>
+            <div className="draw-preview" aria-hidden="true">
+              <img src="/games/draw-along/moon-bunny.jpg" alt="" />
+              <span>✎</span>
+            </div>
+            <div className="tile-content">
+              <span className="game-label">发挥创意</span>
+              <h3>跟着画</h3>
+              <p>看着月亮小兔子画一画！</p>
+              <span className="play-pill">开始画画 <b>›</b></span>
             </div>
           </button>
 

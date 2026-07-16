@@ -160,6 +160,32 @@
   font-weight: 800;
 }
 
+.draw-tile {
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(135deg, #52b9c5, #3b85af);
+  box-shadow: 0 8px 0 #2c698f, 0 15px 25px rgba(35,103,140,.24);
+  transition: transform .2s, box-shadow .2s;
+}
+.draw-tile:hover { transform: translateY(-4px); box-shadow: 0 12px 0 #2c698f, 0 20px 28px rgba(35,103,140,.28); }
+.draw-tile:active { transform: translateY(5px); box-shadow: 0 3px 0 #2c698f; }
+.draw-preview { position: relative; width: min(100%, 190px); justify-self: center; transform: rotate(3deg); }
+.draw-preview img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; border: 7px solid white; border-radius: 18px; box-shadow: 0 8px 15px rgba(21,71,101,.25); }
+.draw-preview span {
+  position: absolute;
+  left: -11px;
+  bottom: -11px;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #347fa2;
+  background: #ffe27c;
+  border: 4px solid white;
+  font-size: 27px;
+}
+
 .mini-board {
   aspect-ratio: 5 / 4;
   display: grid;
