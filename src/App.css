@@ -1,4 +1,13 @@
-body { overflow-x: hidden; }
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 
 button:focus-visible {
   outline: 4px solid #fff;

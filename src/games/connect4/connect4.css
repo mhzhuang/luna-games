@@ -382,7 +382,6 @@ button { -webkit-tap-highlight-color: transparent; }
       radial-gradient(circle at 8% 17%, rgba(255,255,255,.2) 0 2px, transparent 3px),
       radial-gradient(circle at 92% 28%, rgba(255,255,255,.18) 0 2px, transparent 3px),
       linear-gradient(135deg, var(--night-deep), var(--night) 52%, #35368c);
-    overflow: hidden;
   }
 
   .game-shell {
