@@ -55,6 +55,7 @@ function DrawAlong({ onBack }: DrawAlongProps) {
   }
 
   const startDrawing = (event: React.PointerEvent<HTMLCanvasElement>) => {
+    event.preventDefault()
     event.currentTarget.setPointerCapture(event.pointerId)
     drawingRef.current = true
     lastPointRef.current = pointFromEvent(event)
@@ -63,6 +64,7 @@ function DrawAlong({ onBack }: DrawAlongProps) {
 
   const draw = (event: React.PointerEvent<HTMLCanvasElement>) => {
     if (!drawingRef.current) return
+    event.preventDefault()
     const canvas = canvasRef.current
     const context = canvas?.getContext('2d')
     if (!canvas || !context) return
@@ -151,6 +153,8 @@ function DrawAlong({ onBack }: DrawAlongProps) {
               onPointerMove={draw}
               onPointerUp={stopDrawing}
               onPointerCancel={stopDrawing}
+              onContextMenu={(event) => event.preventDefault()}
+              draggable={false}
               aria-label="画画区域"
             />
           </div>
