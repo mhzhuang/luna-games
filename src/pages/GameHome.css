@@ -187,6 +187,36 @@
   font-size: 27px;
 }
 
+.math-tile {
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(135deg, #f2a44f, #dc6d68);
+  box-shadow: 0 8px 0 #b85555, 0 15px 25px rgba(151,70,70,.24);
+  transition: transform .2s, box-shadow .2s;
+}
+.math-tile:hover { transform: translateY(-4px); box-shadow: 0 12px 0 #b85555, 0 20px 28px rgba(151,70,70,.28); }
+.math-tile:active { transform: translateY(5px); box-shadow: 0 3px 0 #b85555; }
+.math-preview {
+  width: min(100%, 190px);
+  aspect-ratio: 1.15;
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  position: relative;
+  border: 7px solid white;
+  border-radius: 19px;
+  color: #6d3d79;
+  background: #fff4cf;
+  box-shadow: 0 8px 15px rgba(106,46,49,.25);
+  transform: rotate(-2deg);
+}
+.math-preview .shop-awning { position: absolute; inset: 0 0 auto; padding: 7px; color: white; background: #985aaf; text-align: center; letter-spacing: 5px; }
+.math-preview div { margin-top: 22px; font-size: 59px; }
+.math-preview i { position: absolute; width: 35px; height: 35px; display: grid; place-items: center; border-radius: 50%; color: white; background: #ffc74b; font-size: 18px; font-style: normal; }
+.math-preview i:nth-of-type(1) { left: 18px; bottom: 22px; }
+.math-preview i:nth-of-type(2) { right: 18px; bottom: 22px; }
+.math-preview > b { position: absolute; bottom: 23px; font-size: 25px; }
+
 .mini-board {
   aspect-ratio: 5 / 4;
   display: grid;

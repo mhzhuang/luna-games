@@ -4,9 +4,10 @@ type GameHomeProps = {
   onPlayConnect4: () => void
   onPlaySpotDifference: () => void
   onPlayDrawAlong: () => void
+  onPlayMoonShop: () => void
 }
 
-function GameHome({ onPlayConnect4, onPlaySpotDifference, onPlayDrawAlong }: GameHomeProps) {
+function GameHome({ onPlayConnect4, onPlaySpotDifference, onPlayDrawAlong, onPlayMoonShop }: GameHomeProps) {
   return (
     <main className="games-home">
       <div className="home-stars" aria-hidden="true">
@@ -74,6 +75,19 @@ function GameHome({ onPlayConnect4, onPlaySpotDifference, onPlayDrawAlong }: Gam
               <h3>跟着画</h3>
               <p>看着月亮小兔子画一画！</p>
               <span className="play-pill">开始画画 <b>›</b></span>
+            </div>
+          </button>
+
+          <button className="game-tile math-tile" type="button" onClick={onPlayMoonShop}>
+            <div className="math-preview" aria-hidden="true">
+              <span className="shop-awning">◡ ◡ ◡</span>
+              <div>🌙</div><i>★</i><i>★</i><b>+</b>
+            </div>
+            <div className="tile-content">
+              <span className="game-label">快乐算一算</span>
+              <h3>月亮商店</h3>
+              <p>用星星币帮小动物买东西！</p>
+              <span className="play-pill">开始营业 <b>›</b></span>
             </div>
           </button>
 
