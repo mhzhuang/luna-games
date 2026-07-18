@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './GameHome.css'
 
 type GameHomeProps = {
@@ -7,7 +8,17 @@ type GameHomeProps = {
   onPlayMoonShop: () => void
 }
 
+const ROOM_DECORATIONS = [
+  { id: 'moon-pillow', emoji: '🌙', name: '月亮抱枕' }, { id: 'rabbit-doll', emoji: '🐰', name: '小兔玩偶' },
+  { id: 'star-lamp', emoji: '⭐', name: '星星灯' }, { id: 'rainbow-rug', emoji: '🌈', name: '彩虹地毯' },
+  { id: 'rocket-model', emoji: '🚀', name: '火箭模型' }, { id: 'flower-vase', emoji: '🌸', name: '魔法花瓶' },
+  { id: 'bear-cushion', emoji: '🧸', name: '小熊靠垫' }, { id: 'balloon', emoji: '🎈', name: '蓝色气球' },
+]
+
 function GameHome({ onPlayConnect4, onPlaySpotDifference, onPlayDrawAlong, onPlayMoonShop }: GameHomeProps) {
+  const [ownedDecorations] = useState<string[]>(() => {
+    try { return JSON.parse(localStorage.getItem('luna-room-rewards') ?? '[]') as string[] } catch { return [] }
+  })
   return (
     <main className="games-home">
       <div className="home-stars" aria-hidden="true">
@@ -94,6 +105,21 @@ function GameHome({ onPlayConnect4, onPlaySpotDifference, onPlayDrawAlong, onPla
           <article className="more-games-card">
             <span>✦</span> 更多小游戏正在准备中…
           </article>
+        </div>
+      </section>
+
+      <section className="luna-room" aria-labelledby="luna-room-title">
+        <div className="room-heading"><div><span>我的收藏</span><h2 id="luna-room-title">Luna 的小房间</h2></div><p>{ownedDecorations.length} / {ROOM_DECORATIONS.length} 件装饰</p></div>
+        <div className="room-scene">
+          <div className="room-window">☾ <i>★</i></div>
+          <div className="room-shelf">
+            {ROOM_DECORATIONS.map((decoration) => (
+              <div className={ownedDecorations.includes(decoration.id) ? 'owned' : 'locked'} key={decoration.id} title={ownedDecorations.includes(decoration.id) ? decoration.name : '完成月亮商店获得'}>
+                <span>{ownedDecorations.includes(decoration.id) ? decoration.emoji : '?'}</span><small>{ownedDecorations.includes(decoration.id) ? decoration.name : '神秘装饰'}</small>
+              </div>
+            ))}
+          </div>
+          {ownedDecorations.length === 0 && <p className="empty-room-tip">去月亮商店完成 5 道题，就能带一件装饰回来！</p>}
         </div>
       </section>
 

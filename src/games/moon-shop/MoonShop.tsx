@@ -4,11 +4,28 @@ import './moon-shop.css'
 type MoonShopProps = { onBack: () => void }
 type Mode = 'add' | 'subtract' | 'mixed'
 type Question = { a: number; b: number; operation: '+' | '-'; answer: number; item: string; emoji: string }
+type Reward = { id: string; emoji: string; name: string }
 
 const ITEMS = [
   ['小兔玩偶', '🐰'], ['月亮灯', '🌙'], ['彩虹风车', '🌈'], ['星星饼干', '🍪'],
   ['小熊背包', '🎒'], ['太空火箭', '🚀'], ['魔法花朵', '🌸'], ['蓝色气球', '🎈'],
 ] as const
+
+const REWARDS: Reward[] = [
+  { id: 'moon-pillow', emoji: '🌙', name: '月亮抱枕' },
+  { id: 'rabbit-doll', emoji: '🐰', name: '小兔玩偶' },
+  { id: 'star-lamp', emoji: '⭐', name: '星星灯' },
+  { id: 'rainbow-rug', emoji: '🌈', name: '彩虹地毯' },
+  { id: 'rocket-model', emoji: '🚀', name: '火箭模型' },
+  { id: 'flower-vase', emoji: '🌸', name: '魔法花瓶' },
+  { id: 'bear-cushion', emoji: '🧸', name: '小熊靠垫' },
+  { id: 'balloon', emoji: '🎈', name: '蓝色气球' },
+]
+const REWARDS_KEY = 'luna-room-rewards'
+
+const readRewards = () => {
+  try { return JSON.parse(localStorage.getItem(REWARDS_KEY) ?? '[]') as string[] } catch { return [] }
+}
 
 const chineseNumber = (value: number) => {
   const digits = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']
@@ -51,6 +68,7 @@ function MoonShop({ onBack }: MoonShopProps) {
   const [showHint, setShowHint] = useState(false)
   const [soundOn, setSoundOn] = useState(true)
   const [complete, setComplete] = useState(false)
+  const [earnedReward, setEarnedReward] = useState<Reward | null>(null)
   const [chineseVoices, setChineseVoices] = useState<SpeechSynthesisVoice[]>([])
   const [voiceName, setVoiceName] = useState(() => {
     try { return localStorage.getItem('luna-math-voice') ?? '' } catch { return '' }
@@ -80,22 +98,29 @@ function MoonShop({ onBack }: MoonShopProps) {
 
   useEffect(() => {
     const loadVoices = () => {
-      const voices = window.speechSynthesis.getVoices().filter((voice) => voice.lang.toLowerCase().startsWith('zh'))
+      const voices = window.speechSynthesis.getVoices().filter((voice) =>
+        voice.lang.toLowerCase().startsWith('zh')
+        || /普通话|中文|mandarin|chinese/i.test(voice.name),
+      )
       setChineseVoices(voices)
-      if (!voiceName && voices.length) {
-        const preferred = voices.find((voice) => voice.lang.toLowerCase() === 'zh-cn' && voice.localService)
+      if (voices.length) setVoiceName((current) => {
+        if (current && voices.some((voice) => voice.name === current)) return current
+        const preferred = voices.find((voice) => /google.*(普通话|mandarin|chinese)/i.test(voice.name))
+          ?? voices.find((voice) => voice.lang.toLowerCase() === 'zh-cn' && voice.localService)
           ?? voices.find((voice) => voice.lang.toLowerCase() === 'zh-cn')
           ?? voices[0]
-        setVoiceName(preferred.name)
-      }
+        return preferred.name
+      })
     }
     loadVoices()
+    const retries = [250, 800, 1800, 3200].map((delay) => window.setTimeout(loadVoices, delay))
     window.speechSynthesis.addEventListener('voiceschanged', loadVoices)
     return () => {
+      retries.forEach((timer) => window.clearTimeout(timer))
       window.speechSynthesis.cancel()
       window.speechSynthesis.removeEventListener('voiceschanged', loadVoices)
     }
-  }, [voiceName])
+  }, [])
 
   const chooseVoice = (name: string) => {
     setVoiceName(name)
@@ -115,6 +140,7 @@ function MoonShop({ onBack }: MoonShopProps) {
     setQuestionIndex(0)
     setStarted(true)
     setComplete(false)
+    setEarnedReward(null)
     resetAnswer()
     speak(`欢迎来到 Luna 的月亮商店！今天我们来帮小动物买东西吧。${questionSpeech(firstQuestion)}`)
   }
@@ -132,8 +158,14 @@ function MoonShop({ onBack }: MoonShopProps) {
 
   const nextQuestion = () => {
     if (questionIndex === 4) {
+      const owned = readRewards()
+      const available = REWARDS.filter((reward) => !owned.includes(reward.id))
+      const reward = (available.length ? available : REWARDS)[Math.floor(Math.random() * (available.length || REWARDS.length))]
+      const updated = Array.from(new Set([...owned, reward.id]))
+      try { localStorage.setItem(REWARDS_KEY, JSON.stringify(updated)) } catch { /* Reward still shows for this round. */ }
+      setEarnedReward(reward)
       setComplete(true)
-      speak('今天的五位客人都买到东西啦！Luna 是最棒的月亮商店老板！')
+      speak(`今天的五位客人都买到东西啦！Luna 获得了${reward.name}，可以放进小房间！`)
       return
     }
     const nextIndex = questionIndex + 1
@@ -198,6 +230,7 @@ function MoonShop({ onBack }: MoonShopProps) {
       {complete ? (
         <section className="shop-complete-card">
           <div>🏆</div><h1>商店营业成功！</h1><p>Luna 获得了月亮店长奖章</p>
+          {earnedReward && <div className="earned-decoration"><span>{earnedReward.emoji}</span><div><small>新装饰</small><strong>{earnedReward.name}</strong><p>已经放进 Luna 的小房间啦！</p></div></div>}
           <button type="button" onClick={startGame}>再玩一轮</button><button type="button" onClick={onBack}>返回大厅</button>
         </section>
       ) : (

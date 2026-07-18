@@ -292,6 +292,14 @@
 .home-footer { padding-top: 18px; color: #aaa8e4; text-align: center; font-size: 13px; font-weight: 700; }
 .home-footer span { color: #ff89aa; }
 
+.luna-room { width: min(100%, 1180px); margin: 25px auto 0; padding: clamp(20px, 3vw, 34px); border-radius: 30px; color: #3f3765; background: #fff7e7; box-shadow: 0 18px 45px rgba(8,8,45,.25); position: relative; z-index: 1; }
+.room-heading { display: flex; justify-content: space-between; align-items: end; margin-bottom: 15px; }.room-heading span { color: #b67889; font-size: 12px; font-weight: 800; letter-spacing: 2px; }.room-heading h2 { margin: 2px 0 0; }.room-heading p { margin: 0; color: #9b8ca6; font-size: 13px; font-weight: 800; }
+.room-scene { min-height: 235px; padding: 25px; border-radius: 24px; background: linear-gradient(#e5d5f2 0 72%, #c99e78 72%); position: relative; overflow: hidden; }
+.room-window { position: absolute; right: 28px; top: 20px; width: 105px; height: 105px; display: grid; place-items: center; border: 8px solid #9b72ad; border-radius: 50%; color: #ffe06d; background: #272461; font-size: 52px; }.room-window i { position: absolute; right: 13px; top: 9px; font-size: 16px; font-style: normal; }
+.room-shelf { width: calc(100% - 135px); min-height: 175px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-content: center; }
+.room-shelf > div { min-height: 76px; padding: 7px; display: grid; place-items: center; border-radius: 15px; background: rgba(255,255,255,.62); text-align: center; }.room-shelf span { font-size: 35px; }.room-shelf small { color: #746a80; font-size: 10px; font-weight: 800; }.room-shelf .locked { opacity: .45; filter: grayscale(1); }.room-shelf .locked span { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; color: white; background: #a99bb2; font-size: 18px; }
+.empty-room-tip { position: absolute; left: 50%; bottom: 5px; transform: translateX(-50%); width: max-content; max-width: 80%; margin: 0; padding: 6px 12px; border-radius: 999px; color: #866e8d; background: rgba(255,255,255,.75); font-size: 11px; font-weight: 800; text-align: center; }
+
 @keyframes moon-float { to { transform: rotate(-12deg) translateY(-10px); } }
 
 @media (max-width: 840px) {
@@ -321,10 +329,12 @@
   .tile-content p { font-size: 12px; margin-bottom: 11px; }
   .play-pill, .soon-pill { padding: 7px 11px; font-size: 12px; }
   .coming-art span { width: 85px; height: 85px; font-size: 40px; }
+  .room-shelf { width: calc(100% - 88px); grid-template-columns: repeat(2, 1fr); }.room-window { width: 75px; height: 75px; right: 12px; }.room-scene { padding: 14px; }.room-heading { align-items: center; }
 }
 
 @media (min-width: 900px) and (orientation: landscape) {
-  .games-home { min-height: 100vh; min-height: 100dvh; display: grid; grid-template-rows: 72px auto auto 35px; }
+  .games-home { min-height: 100vh; min-height: 100dvh; display: block; }
+  .home-header { min-height: 72px; }
   .welcome { min-height: 0; }
   .game-library { align-self: center; }
   .game-tile { min-height: clamp(230px, 32vh, 310px); }

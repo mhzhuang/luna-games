@@ -68,6 +68,9 @@
 
 .shop-complete-card { width: min(92vw, 650px); margin: 10vh auto 0; padding: 40px; border-radius: 32px; text-align: center; background: #fff9e9; box-shadow: 0 20px 45px rgba(20,9,55,.35); }
 .shop-complete-card div { font-size: 80px; }.shop-complete-card h1 { margin: 5px; color: #58366f; }.shop-complete-card p { color: #947b9e; }
+.shop-complete-card .earned-decoration { width: min(100%, 410px); margin: 18px auto; padding: 14px 20px; display: flex; align-items: center; justify-content: center; gap: 18px; border: 3px solid #ffe28a; border-radius: 22px; background: #fff3c4; font-size: initial; }
+.earned-decoration > span { font-size: 62px; filter: drop-shadow(0 5px 5px rgba(82,47,70,.15)); }
+.earned-decoration > div { font-size: initial; text-align: left; }.earned-decoration small, .earned-decoration strong { display: block; }.earned-decoration small { color: #c18247; font-weight: 800; }.earned-decoration strong { color: #694178; font-size: 22px; }.earned-decoration div p { margin: 2px 0 0; font-size: 12px; }
 .shop-complete-card button { margin: 8px 5px; border: 0; border-radius: 999px; padding: 10px 20px; color: white; background: #8d58a6; font-weight: 800; cursor: pointer; }
 .shop-celebration { position: fixed; z-index: 10; left: 50%; top: 42%; color: #ffe06a; font-size: clamp(45px, 8vw, 100px); white-space: nowrap; transform: translate(-50%,-50%); pointer-events: none; animation: shop-cheer 1.5s ease-out both; }
 @keyframes shop-cheer { 0% { opacity: 0; scale: .3; } 45% { opacity: 1; } 100% { opacity: 0; scale: 1.6; } }
