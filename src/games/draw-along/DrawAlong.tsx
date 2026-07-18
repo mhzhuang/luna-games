@@ -4,7 +4,10 @@ import './draw-along.css'
 type DrawAlongProps = { onBack: () => void }
 type Tool = 'brush' | 'eraser'
 
-const COLORS = ['#4b287f', '#ef668f', '#ffbd3f', '#4fadd0', '#62b979', '#20265f']
+const COLORS = [
+  '#4b287f', '#ef668f', '#e94545', '#ff8b3d', '#ffbd3f', '#f4df55',
+  '#62b979', '#52cdb5', '#4fadd0', '#6978df', '#8b5a3c', '#20233a',
+]
 
 function DrawAlong({ onBack }: DrawAlongProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -17,6 +20,7 @@ function DrawAlong({ onBack }: DrawAlongProps) {
   const [guideOn, setGuideOn] = useState(true)
   const [canUndo, setCanUndo] = useState(false)
   const [finished, setFinished] = useState(false)
+  const [saveMessage, setSaveMessage] = useState('')
 
   const prepareCanvas = (savedImage?: string) => {
     const canvas = canvasRef.current
@@ -115,6 +119,56 @@ function DrawAlong({ onBack }: DrawAlongProps) {
     setCanUndo(historyRef.current.length > 0)
   }
 
+  const saveArtwork = async () => {
+    const drawing = canvasRef.current
+    if (!drawing) return
+    setSaveMessage('正在准备图片…')
+    const output = document.createElement('canvas')
+    output.width = 1400
+    output.height = 1400
+    const context = output.getContext('2d')
+    if (!context) return
+    context.fillStyle = '#fffdf8'
+    context.fillRect(0, 0, output.width, output.height)
+
+    if (guideOn) {
+      const guide = new Image()
+      await new Promise<void>((resolve, reject) => {
+        guide.onload = () => resolve()
+        guide.onerror = () => reject(new Error('guide-load-failed'))
+        guide.src = '/games/draw-along/moon-bunny.jpg'
+      })
+      context.globalAlpha = .17
+      context.drawImage(guide, 0, 0, output.width, output.height)
+      context.globalAlpha = 1
+    }
+    context.drawImage(drawing, 0, 0, output.width, output.height)
+
+    const blob = await new Promise<Blob | null>((resolve) => output.toBlob(resolve, 'image/png'))
+    if (!blob) {
+      setSaveMessage('保存失败，请再试一次')
+      return
+    }
+    const file = new File([blob], 'Luna-月亮小兔子.png', { type: 'image/png' })
+    try {
+      if (navigator.canShare?.({ files: [file] })) {
+        await navigator.share({ files: [file], title: 'Luna 的月亮小兔子' })
+        setSaveMessage('作品准备好啦！')
+      } else {
+        const url = URL.createObjectURL(blob)
+        const link = document.createElement('a')
+        link.href = url
+        link.download = file.name
+        link.click()
+        window.setTimeout(() => URL.revokeObjectURL(url), 1000)
+        setSaveMessage('作品已经保存！')
+      }
+    } catch (error) {
+      if (error instanceof DOMException && error.name === 'AbortError') setSaveMessage('')
+      else setSaveMessage('保存失败，请再试一次')
+    }
+  }
+
   return (
     <main className="draw-game">
       {finished && <div className="draw-celebration" aria-hidden="true">★ ✦ ♥ ✧ ★</div>}
@@ -135,6 +189,7 @@ function DrawAlong({ onBack }: DrawAlongProps) {
           <button type="button" className={tool === 'eraser' ? 'active' : ''} onClick={() => setTool(tool === 'eraser' ? 'brush' : 'eraser')}>橡皮擦</button>
           <button type="button" onClick={undo} disabled={!canUndo}>撤销</button>
           <button type="button" onClick={clearCanvas}>清空</button>
+          <button type="button" className="save-artwork" onClick={() => void saveArtwork()}>📷 保存作品</button>
         </div>
       </section>
 
@@ -164,6 +219,7 @@ function DrawAlong({ onBack }: DrawAlongProps) {
       <footer className="draw-footer">
         <label><input type="checkbox" checked={guideOn} onChange={(event) => setGuideOn(event.target.checked)} /> 显示淡色底稿</label>
         <p>{finished ? '画得真有创意，Luna！' : '不用画得一模一样，画出你喜欢的样子吧！'}</p>
+        {saveMessage && <span className="save-message" aria-live="polite">{saveMessage}</span>}
       </footer>
     </main>
   )
